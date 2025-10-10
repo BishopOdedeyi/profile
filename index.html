@@ -1,0 +1,330 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Bishop Odedeyi — About Me</title>
+  <style>
+    :root{
+      --bg:#0f1724;
+      --card:#0b1220;
+      --muted:#98a0b3;
+      --accent:linear-gradient(90deg,#7c3aed,#06b6d4);
+      --glass: rgba(255,255,255,0.03);
+      --glass-2: rgba(255,255,255,0.02);
+      --text:#e6eef8;
+      --glass-border: rgba(255,255,255,0.04);
+      --banner-height: clamp(260px, 36vh, 420px);
+    }
+    /* Auto theme based on user pref */
+    @media (prefers-color-scheme: light){
+      :root{
+        --bg:#f6f8fb;
+        --card:#ffffff;
+        --muted:#6b7280;
+        --glass: rgba(0,0,0,0.03);
+        --glass-2: rgba(0,0,0,0.015);
+        --text:#0b1220;
+        --glass-border: rgba(0,0,0,0.06);
+      }
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+      background:var(--bg);
+      color:var(--text);
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      line-height:1.45;
+      padding-bottom:60px;
+    }
+
+    .container{max-width:1100px;margin:0 auto;padding:28px}
+
+    /* Banner */
+    .banner{
+      height:var(--banner-height);
+      width:100%;
+      position:relative;
+      border-radius:14px;
+      overflow:hidden;
+      margin-bottom:28px;
+      box-shadow:0 6px 30px rgba(2,6,23,0.6);
+      background-color:#111;
+    }
+    .banner__bg{
+      position:absolute;inset:0;background-size:cover;background-position:center;filter:brightness(.55) contrast(.9);
+      transform:translateY(10px);transition:transform .9s cubic-bezier(.2,.9,.2,1);
+    }
+    .banner__overlay{position:absolute;inset:0;background:linear-gradient(180deg, rgba(0,0,0,0.45), rgba(0,0,0,0.6));}
+    .banner__content{
+      position:relative;height:100%;display:flex;align-items:center;justify-content:center;flex-direction:column;padding:28px;text-align:center;
+      transform:translateY(20px);opacity:0;transition:all .9s cubic-bezier(.2,.9,.2,1) .25s
+    }
+    .banner.show .banner__bg{transform:translateY(0)}
+    .banner.show .banner__content{transform:translateY(0);opacity:1}
+    .banner h1{font-size:clamp(28px,4.2vw,48px);margin:0 0 8px}
+    .banner p{margin:0;color:var(--muted)}
+
+    /* About Split */
+    .split{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:28px;align-items:center}
+    .card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border:1px solid var(--glass-border);padding:18px;border-radius:12px}
+    .about-img{height:100%;border-radius:10px;overflow:hidden;display:flex;align-items:center;justify-content:center}
+    .about-img img{width:100%;height:100%;object-fit:cover}
+    .bio{padding:6px 8px}
+    .bio h2{margin-top:0}
+    .tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+    .tag{padding:.4rem .6rem;border-radius:999px;background:var(--glass-2);font-size:13px;color:var(--muted);border:1px solid rgba(255,255,255,0.02)}
+
+    /* Skills cards */
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px}
+    .skill-card{padding:18px;border-radius:10px;background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.00));border:1px solid var(--glass-border);display:flex;align-items:center;gap:12px;transition:transform .22s ease, box-shadow .22s ease}
+    .skill-card:hover{transform:translateY(-6px);box-shadow:0 10px 30px rgba(2,6,23,0.4)}
+    .skill-card .icon{width:44px;height:44px;border-radius:8px;background:var(--glass-2);display:grid;place-items:center;font-size:18px}
+    .skill-card h4{margin:0;font-size:15px}
+
+    /* Lang chips */
+    .langs{display:flex;flex-wrap:wrap;gap:10px}
+    .lang{width:88px;height:88px;border-radius:10px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:8px;border:1px solid var(--glass-border);background:var(--card);transition:transform .18s}
+    .lang img{width:38px;height:38px;object-fit:contain;margin-bottom:8px}
+    .lang:hover{transform:translateY(-6px)}
+    .lang span{font-size:13px;color:var(--muted)}
+
+    /* Hobbies */
+    .hobbies{display:flex;flex-wrap:wrap;gap:12px}
+    .hobby{width:120px;padding:12px;border-radius:12px;text-align:center;background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.00));border:1px solid var(--glass-border);transition:transform .18s}
+    .hobby img{width:48px;height:48px;margin-bottom:8px}
+    .hobby p{margin:0;font-weight:600}
+    .hobby:hover{transform:translateY(-6px)}
+
+    /* Certificates train */
+    .cert-wrap{overflow:hidden;padding:8px;border-radius:12px;border:1px solid var(--glass-border);background:var(--card)}
+    .cert-track{display:flex;gap:14px;align-items:center;white-space:nowrap;animation:scroll 18s linear infinite}
+    .cert{min-width:220px;padding:12px;border-radius:10px;background:linear-gradient(180deg, rgba(255,255,255,0.015), rgba(255,255,255,0.00));border:1px solid var(--glass-border);display:inline-block}
+    .cert img{width:100%;height:100px;object-fit:cover;border-radius:6px;margin-top:8px}
+    .cert small{display:block;color:var(--muted)}
+    .cert h4{margin:6px 0 0}
+    @keyframes scroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+
+    /* Final typing */
+    .final{padding:18px;border-radius:12px;border:1px solid var(--glass-border);background:var(--card);font-size:18px;min-height:78px;display:flex;align-items:center}
+    .cursor{display:inline-block;width:2px;height:1.2em;background:var(--text);margin-left:6px;animation:blink 1s steps(2,start) infinite}
+    @keyframes blink{50%{opacity:0}}
+
+    /* Responsive */
+    @media (max-width:880px){
+      .split{grid-template-columns:1fr}
+      .banner h1{font-size:28px}
+    }
+
+    /* subtle entrance animations for cards */
+    .fade-up{opacity:0;transform:translateY(12px);transition:all .6s cubic-bezier(.2,.9,.2,1)}
+    .fade-up.show{opacity:1;transform:translateY(0)}
+
+    /* Utilities */
+    .center{display:flex;align-items:center;justify-content:center}
+    .muted{color:var(--muted)}
+    .btn{display:inline-block;padding:10px 14px;border-radius:8px;border:1px solid var(--glass-border);background:transparent;color:var(--text);text-decoration:none}
+  </style>
+</head>
+<body>
+  <div class="container">
+
+    <!-- Banner -->
+    <section class="banner" id="banner">
+      <div class="banner__bg" id="bannerBg" style="background-image: url('bishop.jpg');"></div>
+      <div class="banner__overlay"></div>
+      <div class="banner__content">
+        <h1>About Me</h1>
+        <p class="muted">Bishop Odedeyi — Developer, student & relentless learner</p>
+      </div>
+    </section>
+
+    <!-- About split -->
+    <section class="split">
+      <div class="card about-img fade-up" id="photoCard">
+        <!-- Replace with a portrait or keep as decorative -->
+        <img src="bishop.jpg" alt="Bishop Odedeyi">
+      </div>
+      <div class="card bio fade-up" id="bioCard">
+        <h2>Hi — I'm Bishop Odedeyi</h2>
+        <p>I am Bishop Odedeyi currently a 200lvl computer science student of the Osun State University and i am a developer skilled in diverse phases of tech from software development, cybersecurity, data analysis, animation, 3d animation, game development, malware development, app development etc although am not very good but i have been able to learn a lot by learning a lot of differnt things and it feels nice even though i dont have a mega project to show for it which kinda makes me sad.</p>
+        <div class="tags">
+          <span class="tag">200lvl — Osun State University</span>
+          <span class="tag">Student</span>
+          <span class="tag">Full-stack curious</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Skills -->
+    <section style="margin-bottom:18px">
+      <h3>Skills</h3>
+      <div class="grid" id="skills">
+        <!-- cards will be populated by JS -->
+      </div>
+    </section>
+
+    <!-- Programming languages -->
+    <section style="margin-bottom:18px">
+      <h3>Programming Languages</h3>
+      <div class="langs" id="langs">
+        <!-- small uniform cards populated by JS -->
+      </div>
+    </section>
+
+    <!-- Hobbies -->
+    <section style="margin-bottom:18px">
+      <h3>Hobbies</h3>
+      <div class="hobbies" id="hobbies">
+        <!-- populated by JS -->
+      </div>
+    </section>
+
+    <!-- Certificates train -->
+    <section style="margin-bottom:18px">
+      <h3>Certificates</h3>
+      <div class="cert-wrap">
+        <div class="cert-track" id="certTrack">
+          <!-- items populated by JS and duplicated for continuous scroll -->
+        </div>
+      </div>
+      <div style="margin-top:10px;text-align:right">
+        <a class="btn" href="#" id="viewAll">View All Certificates</a>
+      </div>
+    </section>
+
+    <!-- Final hope -->
+    <section style="margin-top:8px">
+      <h3>What I hope to be soon</h3>
+      <div class="final card">
+        <div id="typeArea"></div>
+        <div class="cursor" aria-hidden="true"></div>
+      </div>
+    </section>
+
+  </div>
+
+  <script>
+    // --- Data (from your inputs) ---
+    const skills = [
+      'Web Dev','Game Dev','Software Dev','Cyber Securist','Red Teamer','Malware Dev','Network Engineer','Sysadmin','Data Analyst','AI Engineer','Prompt Engineer'
+    ];
+
+    const langs = [
+      {name:'Python',icon:'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg'},
+      {name:'C++',icon:'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg'},
+      {name:'PHP',icon:'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/php/php-original.svg'},
+      {name:'SQL',icon:'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg'},
+      {name:'HTML',icon:'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg'},
+      {name:'CSS',icon:'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg'},
+      {name:'JS',icon:'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg'},
+      {name:'Flutter',icon:'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/flutter/flutter-original.svg'},
+      {name:'Go',icon:'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/go/go-original.svg'},
+      {name:'C#',icon:'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/csharp/csharp-original.svg'},
+      {name:'C',icon:'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/c/c-original.svg'}
+    ];
+
+    const hobbies = [
+      {label:'Code',emoji:'1f4bb'},
+      {label:'Sleep',emoji:'1f634'},
+      {label:'Crush',emoji:'1f498'},
+      {label:'Eat',emoji:'1f354'},
+      {label:'Think',emoji:'1f914'},
+      {label:'Read',emoji:'1f4da'},
+      {label:'Make money',emoji:'1f4b8'}
+    ];
+
+    const certs = [
+      {platform:'Coursera',title:'Web Development',img:'bishop.jpg'},
+      {platform:'Udemy',title:'Intro to C++',img:'bishop.jpg'},
+      {platform:'Google',title:'Data Analytics',img:'bishop.jpg'},
+      {platform:'edX',title:'Cybersecurity Basics',img:'bishop.jpg'},
+      {platform:'Pluralsight',title:'Game Dev Foundations',img:'bishop.jpg'}
+    ];
+
+    // --- Populate DOM ---
+    const skillsWrap = document.getElementById('skills');
+    skills.forEach((s,i)=>{
+      const el = document.createElement('div');
+      el.className = 'skill-card fade-up';
+      el.innerHTML = `<div class="icon">${s.charAt(0)}</div><div><h4>${s}</h4><div class="muted">${i+1} years (self)</div></div>`;
+      skillsWrap.appendChild(el);
+    });
+
+    const langsWrap = document.getElementById('langs');
+    langs.forEach(l=>{
+      const el = document.createElement('div');el.className='lang';
+      el.innerHTML = `<img src="${l.icon}" alt="${l.name} icon" onerror="this.style.opacity=.3"><span>${l.name}</span>`;
+      langsWrap.appendChild(el);
+    });
+
+    const hobbiesWrap = document.getElementById('hobbies');
+    hobbies.forEach(h=>{
+      const el=document.createElement('div');el.className='hobby';
+      // twemoji CDN pattern: https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/72x72/<hex>.png
+      el.innerHTML = `<img src="https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/72x72/${h.emoji}.png" alt="${h.label}"><p>${h.label}</p>`;
+      hobbiesWrap.appendChild(el);
+    });
+
+    const certTrack = document.getElementById('certTrack');
+    function buildCerts(){
+      certTrack.innerHTML = '';
+      // duplicate items so animation looks continuous
+      const all = certs.concat(certs);
+      all.forEach(c=>{
+        const el = document.createElement('div');el.className='cert';
+        el.innerHTML = `<small>${c.platform}</small><h4>${c.title}</h4><img src="${c.img}" alt="${c.title}">`;
+        certTrack.appendChild(el);
+      });
+    }
+    buildCerts();
+
+    // Typing animation for final section
+    const finalText = `I want to make applications that redefine reason and am actually working my way to it with this my mini php projects but in summary i plan to be God in the world of programming and i dont mind moving from prince to king to emperor to demigod to demon lord to demon prince to Overlord then to God`;
+    const typeArea = document.getElementById('typeArea');
+    let idx=0;
+    function type(){
+      if(idx<=finalText.length){
+        typeArea.textContent = finalText.slice(0,idx);
+        idx++;
+        setTimeout(type, 26);
+      }
+    }
+
+    // Entrance animations when visible
+    function reveal(){
+      document.getElementById('banner').classList.add('show');
+      document.querySelectorAll('.fade-up').forEach((el,i)=>setTimeout(()=>el.classList.add('show'), 120*i));
+      type();
+    }
+
+    // Start after load
+    window.addEventListener('load',()=>{
+      // slight delay for punchy animation
+      setTimeout(reveal,120);
+
+      // make cert-track width based to allow seamless scroll; if user resizes, rebuild
+      const track = document.getElementById('certTrack');
+      // pause on hover
+      track.addEventListener('mouseenter',()=>track.style.animationPlayState='paused');
+      track.addEventListener('mouseleave',()=>track.style.animationPlayState='running');
+
+      // view all button (placeholder)
+      document.getElementById('viewAll').addEventListener('click', (e)=>{
+        e.preventDefault();
+        alert('Link to all certificates coming soon — replace with your URL');
+      });
+    });
+
+    // Accessibility: prefers-reduced-motion
+    const prm = window.matchMedia('(prefers-reduced-motion: reduce)');
+    if(prm.matches){
+      document.querySelectorAll('*').forEach(el=>el.style.transition='none');
+    }
+  </script>
+</body>
+</html>
