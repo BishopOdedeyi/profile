@@ -128,6 +128,67 @@
     .center{display:flex;align-items:center;justify-content:center}
     .muted{color:var(--muted)}
     .btn{display:inline-block;padding:10px 14px;border-radius:8px;border:1px solid var(--glass-border);background:transparent;color:var(--text);text-decoration:none}
+  
+	/* Certificate Popup Gallery */
+	.cert-popup {
+	  position: fixed;
+	  inset: 0;
+	  background: rgba(0,0,0,0.8);
+	  backdrop-filter: blur(6px);
+	  display: flex;
+	  align-items: center;
+	  justify-content: center;
+	  z-index: 9999;
+	  opacity: 0;
+	  pointer-events: none;
+	  transition: opacity .3s ease;
+	}
+	.cert-popup.show {
+	  opacity: 1;
+	  pointer-events: all;
+	}
+	.cert-popup-content {
+	  background: var(--card);
+	  color: var(--text);
+	  border-radius: 14px;
+	  padding: 20px;
+	  max-width: 90%;
+	  width: 480px;
+	  box-shadow: 0 0 40px rgba(0,0,0,0.5);
+	  text-align: center;
+	  animation: popIn .35s cubic-bezier(.2,.9,.2,1);
+	  position: relative;
+	}
+	.cert-popup-content img {
+	  width: 100%;
+	  height: auto;
+	  border-radius: 10px;
+	  margin-top: 10px;
+	}
+	.cert-popup-content h3 {
+	  margin: 0;
+	  font-size: 20px;
+	}
+	.cert-popup-content small {
+	  color: var(--muted);
+	}
+	.close-popup {
+	  position: absolute;
+	  top: 8px;
+	  right: 12px;
+	  font-size: 24px;
+	  color: var(--muted);
+	  cursor: pointer;
+	  transition: color .2s ease;
+	}
+	.close-popup:hover {
+	  color: var(--text);
+	}
+	@keyframes popIn {
+	  from { transform: scale(.9); opacity: 0; }
+	  to { transform: scale(1); opacity: 1; }
+	}
+
   </style>
 </head>
 <body>
@@ -207,6 +268,17 @@
     </section>
 
   </div>
+  
+  <!-- Certificate Popup -->
+	<div class="cert-popup" id="certPopup">
+	  <div class="cert-popup-content" id="certPopupContent">
+		<span class="close-popup" id="closePopup">&times;</span>
+		<small id="popupPlatform"></small>
+		<h3 id="popupTitle"></h3>
+		<img id="popupImg" src="" alt="">
+	  </div>
+	</div>
+
 
 	  <script>
 	  // --- Data (editable by you) ---
@@ -292,15 +364,41 @@
 	  const certTrack = document.getElementById('certTrack');
 	  function buildCerts(){
 		certTrack.innerHTML = '';
-		const all = certs.concat(certs);
-		all.forEach(c=>{
-		  const el = document.createElement('div');
-		  el.className='cert';
-		  el.innerHTML = `<small>${c.platform}</small><h4>${c.title}</h4><img src="${c.img}" alt="${c.title}">`;
-		  certTrack.appendChild(el);
-		});
+		  const all = certs.concat(certs);
+		  all.forEach(c=>{
+			const el = document.createElement('div');
+			el.className='cert';
+			el.innerHTML = `<small>${c.platform}</small><h4>${c.title}</h4><img src="${c.img}" alt="${c.title}">`;
+			el.addEventListener('click',()=>openCertPopup(c));
+			certTrack.appendChild(el);
+		  });
 	  }
 	  buildCerts();
+	  
+	  // --- Popup logic ---
+	const popup = document.getElementById('certPopup');
+	const popupImg = document.getElementById('popupImg');
+	const popupTitle = document.getElementById('popupTitle');
+	const popupPlatform = document.getElementById('popupPlatform');
+	const closePopup = document.getElementById('closePopup');
+
+	function openCertPopup(cert){
+	  popupImg.src = cert.img;
+	  popupTitle.textContent = cert.title;
+	  popupPlatform.textContent = cert.platform;
+	  popup.classList.add('show');
+	  document.body.style.overflow = 'hidden'; // prevent scroll
+	}
+
+	closePopup.addEventListener('click', closeCertPopup);
+	popup.addEventListener('click', (e)=>{
+	  if(e.target === popup) closeCertPopup(); // close if background clicked
+	});
+
+	function closeCertPopup(){
+	  popup.classList.remove('show');
+	  document.body.style.overflow = 'auto';
+	}
 
 	  // Typing animation for final section
 	  const finalText = `I want to make applications that redefine reason and am actually working my way to it with this my mini php projects but in summary i plan to be God in the world of programming and i dont mind moving from prince to king to emperor to demigod to demon lord to demon prince to Overlord then to God`;
