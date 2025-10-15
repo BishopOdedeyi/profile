@@ -208,123 +208,135 @@
 
   </div>
 
-  <script>
-    // --- Data (from your inputs) ---
-    const skills = [
-      'Web Dev','Game Dev','Software Dev','Cyber Securist','Red Teamer','Malware Dev','Network Engineer','Sysadmin','Data Analyst','AI Engineer','Prompt Engineer'
-    ];
+	  <script>
+	  // --- Data (editable by you) ---
+	  const skills = [
+		{ name: 'Web Dev', years: '5 years' },
+		{ name: 'Game Dev', years: '1 year' },
+		{ name: 'Software Dev', years: '3 year' },
+		{ name: 'Cyber Securist', years: '2 years' },
+		{ name: 'Red Teamer', years: '1.5 years' },
+		{ name: 'Malware Dev', years: '1.5 years' },
+		{ name: 'Network Engineer', years: 'Few months' },
+		{ name: 'Sysadmin', years: '6 months' },
+		{ name: 'Data Analyst', years: '2 years' },
+		{ name: 'AI Engineer', years: '1.5 years' },
+		{ name: 'Prompt Engineer', years: '1 year' }
+	  ];
 
-    const langs = [
-      {name:'Python',icon:'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg'},
-      {name:'C++',icon:'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg'},
-      {name:'PHP',icon:'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/php/php-original.svg'},
-      {name:'SQL',icon:'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg'},
-      {name:'HTML',icon:'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg'},
-      {name:'CSS',icon:'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg'},
-      {name:'JS',icon:'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg'},
-      {name:'Flutter',icon:'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/flutter/flutter-original.svg'},
-      {name:'Go',icon:'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/go/go-original.svg'},
-      {name:'C#',icon:'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/csharp/csharp-original.svg'},
-      {name:'C',icon:'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/c/c-original.svg'}
-    ];
+	  const langs = [
+		{name:'Python',icon:'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg'},
+		{name:'C++',icon:'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg'},
+		{name:'PHP',icon:'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/php/php-original.svg'},
+		{name:'SQL',icon:'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg'},
+		{name:'HTML',icon:'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg'},
+		{name:'CSS',icon:'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg'},
+		{name:'JS',icon:'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg'},
+		{name:'Flutter',icon:'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/flutter/flutter-original.svg'},
+		{name:'Go',icon:'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/go/go-original.svg'},
+		{name:'C#',icon:'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/csharp/csharp-original.svg'},
+		{name:'C',icon:'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/c/c-original.svg'}
+	  ];
 
-    const hobbies = [
-      {label:'Code',emoji:'1f4bb'},
-      {label:'Sleep',emoji:'1f634'},
-      {label:'Crush',emoji:'1f498'},
-      {label:'Eat',emoji:'1f354'},
-      {label:'Think',emoji:'1f914'},
-      {label:'Read',emoji:'1f4da'},
-      {label:'Make money',emoji:'1f4b8'}
-    ];
+	  const hobbies = [
+		{label:'Code',emoji:'1f4bb'},
+		{label:'Sleep',emoji:'1f634'},
+		{label:'Crush',emoji:'1f498'},
+		{label:'Eat',emoji:'1f354'},
+		{label:'Think',emoji:'1f914'},
+		{label:'Read',emoji:'1f4da'},
+		{label:'Make money',emoji:'1f4b8'}
+	  ];
 
-    const certs = [
-      {platform:'Coursera',title:'Web Development',img:'bishop.jpg'},
-      {platform:'Udemy',title:'Intro to C++',img:'bishop.jpg'},
-      {platform:'Google',title:'Data Analytics',img:'bishop.jpg'},
-      {platform:'edX',title:'Cybersecurity Basics',img:'bishop.jpg'},
-      {platform:'Pluralsight',title:'Game Dev Foundations',img:'bishop.jpg'}
-    ];
+	  const certs = [
+		{platform:'Udemy',title:'PHP Web Development',img:'certs/cert (1).jpg'},
+		{platform:'Udemy',title:'Python Web Scraping',img:'certs/cert (2).jpg'},
+		{platform:'Udemy',title:'Windows Command Mastery',img:'certs/cert (3).jpg'},
+		{platform:'Udemy',title:'Prompt Engineering',img:'certs/cert (4).jpg'},
+		{platform:'Udemy',title:'Web Hacking',img:'certs/cert (5).jpg'},
+		{platform:'Udemy',title:'Cybersecurity',img:'certs/cert (6).jpg'},
+		{platform:'Udemy',title:'Ethical Hacking',img:'certs/cert (7).jpg'},
+		{platform:'Udemy',title:'Hydra Expert',img:'certs/cert (8).jpg'}
+	  ];
 
-    // --- Populate DOM ---
-    const skillsWrap = document.getElementById('skills');
-    skills.forEach((s,i)=>{
-      const el = document.createElement('div');
-      el.className = 'skill-card fade-up';
-      el.innerHTML = `<div class="icon">${s.charAt(0)}</div><div><h4>${s}</h4><div class="muted">${i+1} years (self)</div></div>`;
-      skillsWrap.appendChild(el);
-    });
+	  // --- Populate DOM ---
+	  const skillsWrap = document.getElementById('skills');
+	  skills.forEach((s)=>{
+		const el = document.createElement('div');
+		el.className = 'skill-card fade-up';
+		el.innerHTML = `
+		  <div class="icon">${s.name.charAt(0)}</div>
+		  <div>
+			<h4>${s.name}</h4>
+			<div class="muted">${s.years}</div>
+		  </div>`;
+		skillsWrap.appendChild(el);
+	  });
 
-    const langsWrap = document.getElementById('langs');
-    langs.forEach(l=>{
-      const el = document.createElement('div');el.className='lang';
-      el.innerHTML = `<img src="${l.icon}" alt="${l.name} icon" onerror="this.style.opacity=.3"><span>${l.name}</span>`;
-      langsWrap.appendChild(el);
-    });
+	  const langsWrap = document.getElementById('langs');
+	  langs.forEach(l=>{
+		const el = document.createElement('div');
+		el.className='lang';
+		el.innerHTML = `<img src="${l.icon}" alt="${l.name} icon" onerror="this.style.opacity=.3"><span>${l.name}</span>`;
+		langsWrap.appendChild(el);
+	  });
 
-    const hobbiesWrap = document.getElementById('hobbies');
-    hobbies.forEach(h=>{
-      const el=document.createElement('div');el.className='hobby';
-      // twemoji CDN pattern: https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/72x72/<hex>.png
-      el.innerHTML = `<img src="https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/72x72/${h.emoji}.png" alt="${h.label}"><p>${h.label}</p>`;
-      hobbiesWrap.appendChild(el);
-    });
+	  const hobbiesWrap = document.getElementById('hobbies');
+	  hobbies.forEach(h=>{
+		const el=document.createElement('div');
+		el.className='hobby';
+		el.innerHTML = `<img src="https://cdnjs.cloudflare.com/ajax/libs/twemoji/14.0.2/72x72/${h.emoji}.png" alt="${h.label}"><p>${h.label}</p>`;
+		hobbiesWrap.appendChild(el);
+	  });
 
-    const certTrack = document.getElementById('certTrack');
-    function buildCerts(){
-      certTrack.innerHTML = '';
-      // duplicate items so animation looks continuous
-      const all = certs.concat(certs);
-      all.forEach(c=>{
-        const el = document.createElement('div');el.className='cert';
-        el.innerHTML = `<small>${c.platform}</small><h4>${c.title}</h4><img src="${c.img}" alt="${c.title}">`;
-        certTrack.appendChild(el);
-      });
-    }
-    buildCerts();
+	  const certTrack = document.getElementById('certTrack');
+	  function buildCerts(){
+		certTrack.innerHTML = '';
+		const all = certs.concat(certs);
+		all.forEach(c=>{
+		  const el = document.createElement('div');
+		  el.className='cert';
+		  el.innerHTML = `<small>${c.platform}</small><h4>${c.title}</h4><img src="${c.img}" alt="${c.title}">`;
+		  certTrack.appendChild(el);
+		});
+	  }
+	  buildCerts();
 
-    // Typing animation for final section
-    const finalText = `I want to make applications that redefine reason and am actually working my way to it with this my mini php projects but in summary i plan to be God in the world of programming and i dont mind moving from prince to king to emperor to demigod to demon lord to demon prince to Overlord then to God`;
-    const typeArea = document.getElementById('typeArea');
-    let idx=0;
-    function type(){
-      if(idx<=finalText.length){
-        typeArea.textContent = finalText.slice(0,idx);
-        idx++;
-        setTimeout(type, 26);
-      }
-    }
+	  // Typing animation for final section
+	  const finalText = `I want to make applications that redefine reason and am actually working my way to it with this my mini php projects but in summary i plan to be God in the world of programming and i dont mind moving from prince to king to emperor to demigod to demon lord to demon prince to Overlord then to God`;
+	  const typeArea = document.getElementById('typeArea');
+	  let idx=0;
+	  function type(){
+		if(idx<=finalText.length){
+		  typeArea.textContent = finalText.slice(0,idx);
+		  idx++;
+		  setTimeout(type, 26);
+		}
+	  }
 
-    // Entrance animations when visible
-    function reveal(){
-      document.getElementById('banner').classList.add('show');
-      document.querySelectorAll('.fade-up').forEach((el,i)=>setTimeout(()=>el.classList.add('show'), 120*i));
-      type();
-    }
+	  // Entrance animations
+	  function reveal(){
+		document.getElementById('banner').classList.add('show');
+		document.querySelectorAll('.fade-up').forEach((el,i)=>setTimeout(()=>el.classList.add('show'), 120*i));
+		type();
+	  }
 
-    // Start after load
-    window.addEventListener('load',()=>{
-      // slight delay for punchy animation
-      setTimeout(reveal,120);
+	  window.addEventListener('load',()=>{
+		setTimeout(reveal,120);
+		const track = document.getElementById('certTrack');
+		track.addEventListener('mouseenter',()=>track.style.animationPlayState='paused');
+		track.addEventListener('mouseleave',()=>track.style.animationPlayState='running');
+		document.getElementById('viewAll').addEventListener('click', (e)=>{
+		  e.preventDefault();
+		  alert('Link to all certificates coming soon');
+		});
+	  });
 
-      // make cert-track width based to allow seamless scroll; if user resizes, rebuild
-      const track = document.getElementById('certTrack');
-      // pause on hover
-      track.addEventListener('mouseenter',()=>track.style.animationPlayState='paused');
-      track.addEventListener('mouseleave',()=>track.style.animationPlayState='running');
+	  const prm = window.matchMedia('(prefers-reduced-motion: reduce)');
+	  if(prm.matches){
+		document.querySelectorAll('*').forEach(el=>el.style.transition='none');
+	  }
+	</script>
 
-      // view all button (placeholder)
-      document.getElementById('viewAll').addEventListener('click', (e)=>{
-        e.preventDefault();
-        alert('Link to all certificates coming soon — replace with your URL');
-      });
-    });
-
-    // Accessibility: prefers-reduced-motion
-    const prm = window.matchMedia('(prefers-reduced-motion: reduce)');
-    if(prm.matches){
-      document.querySelectorAll('*').forEach(el=>el.style.transition='none');
-    }
-  </script>
 </body>
 </html>
